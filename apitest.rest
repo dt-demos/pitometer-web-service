@@ -103,7 +103,7 @@ Content-Type: application/json
 }
 ###
 
-POST https://pitometer.azurewebsites.net/api/pitometer?code=
+POST http://pitometer.eastus.azurecontainer.io:8080/api/pitometer/dynatrace
 Content-Type: application/json
 
 {
@@ -205,14 +205,3 @@ Content-Type: application/json
     }
   }
 }
-
-###
-POST https://kspitometer.azurewebsites.net
-Content-Type: application/json
-
-{
-  "name":"john"
-}
-
-###
-http://webapppitometer.azurewebsites.net/
