@@ -103,7 +103,7 @@ Content-Type: application/json
 }
 ###
 
-POST https://pitometer.azurewebsites.net/api/pitometer?code=ryqBx5JWWRfyPtgvCHd84edO7aul317665Qza0SGca/HZRp4mOuVsg==
+POST https://pitometer.azurewebsites.net/api/pitometer?code=
 Content-Type: application/json
 
 {
