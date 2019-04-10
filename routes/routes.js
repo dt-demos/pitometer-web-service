@@ -20,27 +20,58 @@ router.use(function(req, res, next) {
 
   router.route('/pitometer/dynatrace').post(async function(req, res) {
     var monspecfile = req.body.monspec;
+    if(monspecfile)
+    {
+      const dotenv = require('dotenv');
+      dotenv.config();
+  
+      pitometer.addSource('Dynatrace', new DynatraceSource({
+        baseUrl: process.env.BASEURL,
+        apiToken: process.env.DYNATRACEKEY,
+  
+      }));
+  
+      pitometer.addGrader('Threshold', new ThresholdGrader());
+  
+      await pitometer.run(monspecfile)
+      .then((results) => telemetryresult = results)
+      .catch((err) => console.error(err));
+  
+      var monspecstring = JSON.stringify(monspecfile);
+  
+      console.log(monspecstring);
+  
+      res.send(JSON.stringify(telemetryresult));
+  }
+  else
+  {
+    res.status(400).send("The Post Body is empty, please send the correct POST Body message using the Monspec default template file of Pitometer on GitHub");
+  }
+});  
 
-    const dotenv = require('dotenv');
-    dotenv.config();
+router.route('/pitometer/prometheus').post(async function(req, res) {
+  var monspecfile = req.body.monspec;
 
-    pitometer.addSource('Dynatrace', new DynatraceSource({
-      baseUrl: process.env.BASEURL,
-      apiToken: process.env.DYNATRACEKEY,
+  const dotenv = require('dotenv');
+  dotenv.config();
 
-    }));
+  pitometer.addSource('Prometheus', new PrometheusSource({
+    baseUrl: process.env.BASEURL,
+    apiToken: process.env.PROMETHEUSKEY,
 
-    pitometer.addGrader('Threshold', new ThresholdGrader());
+  }));
 
-    await pitometer.run(monspecfile)
-    .then((results) => telemetryresult = results)
-    .catch((err) => console.error(err));
+  pitometer.addGrader('Threshold', new ThresholdGrader());
 
-    var monspecstring = JSON.stringify(monspecfile);
+  await pitometer.run(monspecfile)
+  .then((results) => telemetryresult = results)
+  .catch((err) => console.error(err));
 
-    console.log(monspecstring);
+  var monspecstring = JSON.stringify(monspecfile);
 
-    res.send(JSON.stringify(telemetryresult));
+  console.log(monspecstring);
+
+  res.send(JSON.stringify(telemetryresult));
 });
 
 module.exports.router = router;
