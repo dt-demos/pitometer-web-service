@@ -3,6 +3,7 @@ var router = express.Router();
 
 //pitometer modules required
 const DynatraceSource = require('@pitometer/source-dynatrace').Source;
+const PrometheusSource = require('@pitometer/source-prometheus').Source;
 const ThresholdGrader = require('@pitometer/grader-threshold').Grader;
 const Pitometer = require ("@pitometer/pitometer").Pitometer;
 
@@ -34,11 +35,11 @@ router.use(function(req, res, next) {
   
       }));
 
-      // pitometer.addSource('Prometheus', new PrometheusSource({
-      //   baseUrl: process.env.BASEURL,
-      //   apiToken: process.env.PROMETHEUSKEY,
+      pitometer.addSource('Prometheus', new PrometheusSource({
+        baseUrl: process.env.BASEURL,
+        apiToken: process.env.PROMETHEUSKEY,
     
-      // }));
+      }));
   
       pitometer.addGrader('Threshold', new ThresholdGrader());
   
