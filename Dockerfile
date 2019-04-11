@@ -15,5 +15,8 @@ RUN npm install
 # Bundle app source
 COPY . .
 
+ENV BASEURL=
+ENV PROVIDERKEY=
+
 EXPOSE 8080
 CMD [ "npm", "start" ]

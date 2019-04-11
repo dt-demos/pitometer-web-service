@@ -1,5 +1,5 @@
 
-POST http://localhost:8080/api/pitometer/dynatrace
+POST http://localhost:8080/api/pitometer
 Content-Type: application/json
 
 {
@@ -207,5 +207,5 @@ Content-Type: application/json
 }
 ###
 
-POST http://localhost:8080/api/pitometer/dynatrace
+POST http://localhost:8080/api/pitometer
 Content-Type: application/json

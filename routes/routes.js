@@ -14,7 +14,7 @@ router.use(function(req, res, next) {
   });
   
   router.get('/', function(req, res) {
-    res.json({ message: 'Please choose your API to call /api/pitometer/dynatrace or /api/pitometer/prometheus' });  
+    res.json({ message: 'Please, use pitometer calling /api/pitometer' });  
   });
 
 
@@ -22,17 +22,11 @@ router.use(function(req, res, next) {
     var monspecfile = req.body.monspec;
     if(monspecfile)
     {
-      if(process.env.BASEURL == 'blablabla')
-      {
-
-      }
-      else
+      if(process.env.BASEURL == null || process.env.PROVIDERKEY == null || process.env.BASEURL == "" || process.env.PROVIDERKEY == "")
       {
         const dotenv = require('dotenv');
         dotenv.config();
-
       }
-
   
       pitometer.addSource('Dynatrace', new DynatraceSource({
         baseUrl: process.env.BASEURL,
@@ -58,9 +52,8 @@ router.use(function(req, res, next) {
   
       res.send(JSON.stringify(telemetryresult));
   }
-  else
   {
-    res.status(400).send("The Post Body is empty, please send the correct POST Body message using the Monspec default template file of Pitometer on GitHub");
+    res.status(400).json({ status: 'fail', message: 'The Perfspec file is empty, please check your request body and try again.' });
   }
 });  
 
