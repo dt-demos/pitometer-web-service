@@ -9,10 +9,9 @@
   "author": "community",
   "license": "MIT",
   "dependencies": {
-    "@pitometer/grader-threshold": "git+https://github.com/keptn/pitometer-grader-thresholds.git",
-    "@pitometer/pitometer": "git+https://github.com/keptn/pitometer.git",
-    "@pitometer/source-dynatrace": "git+https://github.com/keptn/pitometer-source-dynatrace.git",
-    "@pitometer/source-prometheus": "git+https://github.com/keptn/pitometer-source-prometheus.git",
+    "@pitometer/grader-threshold": "keptn/pitometer-grader-thresholds#0.0.2",
+    "@pitometer/pitometer": "keptn/pitometer#0.0.2",
+    "@pitometer/source-dynatrace": "keptn/pitometer-source-dynatrace#0.0.2",
     "body-parser": "^1.18.3",
     "dotenv": "^7.0.0",
     "express": "^4.16.4"

@@ -1,211 +1,87 @@
-
 POST http://localhost:8080/api/pitometer
 Content-Type: application/json
 
 {
-  "monspec": {
-    "spec_version": "1.0",
-    "indicators": [
-      {
-        "id": "P90_ResponseTime_Frontend",
-        "source": "Dynatrace",
-        "query": {
-          "timeseriesId": "com.dynatrace.builtin:service.responsetime",
-          "aggregation": "p90",
-          "tags": [
-            "dt-kube-demo-environment:production",
-            "dt-kube-demo-service:front-end"
-          ]
-        },
-        "grading": {
-          "type": "Threshold",
-          "thresholds": {
-            "upperSevere": 4000000,
-            "upperWarning": 2000000,
-            "lowerWarning ": 0,
-            "lowerSevere": 0
-          },
-          "metricScore": 80
-        }
-      },
-      {
-        "id": "AVG_ResponseTime_Frontend",
-        "source": "Dynatrace",
-        "query": {
-          "timeseriesId": "com.dynatrace.builtin:service.responsetime",
-          "aggregation": "avg",
-          "tags": [
-            "dt-kube-demo-environment:production",
-            "dt-kube-demo-service:front-end"
-          ]
-        },
-        "grading": {
-          "type": "Threshold",
-          "thresholds": {
-            "upperSevere": 4000000,
-            "upperWarning": 2000000,
-            "lowerWarning ": 0,
-            "lowerSevere": 0
-          },
-          "metricScore": 80
-        }
-      },
-      {
-        "id": "P90_ResponseTime_Backend",
-        "source": "Dynatrace",
-        "query": {
-          "timeseriesId": "com.dynatrace.builtin:service.responsetime",
-          "aggregation": "p90",
-          "tags": [
-            "dt-kube-demo-environment:production",
-            "dt-kube-demo-service:catalog"
-          ]
-        },
-        "grading": {
-          "type": "Threshold",
-          "thresholds": {
-            "upperSevere": 1000000,
-            "upperWarning": 500000,
-            "lowerWarning ": 0,
-            "lowerSevere": 0
-          },
-          "metricScore": 20
-        }
-      },
-      {
-        "id": "AVG_ResponseTime_Backend",
-        "source": "Dynatrace",
-        "query": {
-          "timeseriesId": "com.dynatrace.builtin:service.responsetime",
-          "aggregation": "avg",
-          "tags": [
-            "dt-kube-demo-environment:production",
-            "dt-kube-demo-service:catalog"
-          ]
-        },
-        "grading": {
-          "type": "Threshold",
-          "thresholds": {
-            "upperSevere": 1000000,
-            "upperWarning": 500000,
-            "lowerWarning ": 0,
-            "lowerSevere": 0
-          },
-          "metricScore": 20
-        }
-      }
-    ],
-    "objectives": {
-      "pass": 90,
-      "warning": 75
-    }
-  }
+	"timeStart": 1551398400,
+	"timeEnd": 1555027200,
+	"perfSpecJson": {
+		"monspec": {
+			"spec_version": "1.0",
+			"indicators": [
+				{
+					"id": "P90_ResponseTime_Frontend",
+					"source": "Dynatrace",
+					"query": {
+						"timeseriesId": "com.dynatrace.builtin:service.responsetime",
+						"aggregation": "p90"
+					},
+					"grading": {
+						"type": "Threshold",
+						"thresholds": {
+							"upperSevere": 4000000,
+							"upperWarning": 2000000,
+							"lowerWarning ": 0,
+							"lowerSevere": 0
+						},
+						"metricScore": 80
+					}
+				}, {
+					"id": "AVG_ResponseTime_Frontend",
+					"source": "Dynatrace",
+					"query": {
+						"timeseriesId": "com.dynatrace.builtin:service.responsetime",
+						"aggregation": "avg"
+					},
+					"grading": {
+						"type": "Threshold",
+						"thresholds": {
+							"upperSevere": 4000000,
+							"upperWarning": 2000000,
+							"lowerWarning ": 0,
+							"lowerSevere": 0
+						},
+						"metricScore": 80
+					}
+				}, {
+					"id": "P90_ResponseTime_Backend",
+					"source": "Dynatrace",
+					"query": {
+						"timeseriesId": "com.dynatrace.builtin:service.responsetime",
+						"aggregation": "p90"
+					},
+					"grading": {
+						"type": "Threshold",
+						"thresholds": {
+							"upperSevere": 1000000,
+							"upperWarning": 500000,
+							"lowerWarning ": 0,
+							"lowerSevere": 0
+						},
+						"metricScore": 20
+					}
+				}, {
+					"id": "AVG_ResponseTime_Backend",
+					"source": "Dynatrace",
+					"query": {
+						"timeseriesId": "com.dynatrace.builtin:service.responsetime",
+						"aggregation": "avg"
+					},
+					"grading": {
+						"type": "Threshold",
+						"thresholds": {
+							"upperSevere": 1000000,
+							"upperWarning": 500000,
+							"lowerWarning ": 0,
+							"lowerSevere": 0
+						},
+						"metricScore": 20
+					}
+				}
+			],
+			"objectives": {
+				"pass": 90,
+				"warning": 75
+			}
+		}
+	}
 }
-###
-
-POST http://pitometer.eastus.azurecontainer.io:8080/api/pitometer/dynatrace
-Content-Type: application/json
-
-{
-  "monspec": {
-    "spec_version": "1.0",
-    "indicators": [
-      {
-        "id": "P90_ResponseTime_Frontend",
-        "source": "Dynatrace",
-        "query": {
-          "timeseriesId": "com.dynatrace.builtin:service.responsetime",
-          "aggregation": "p90",
-          "tags": [
-            "dt-kube-demo-environment:production",
-            "dt-kube-demo-service:front-end"
-          ]
-        },
-        "grading": {
-          "type": "Threshold",
-          "thresholds": {
-            "upperSevere": 4000000,
-            "upperWarning": 2000000,
-            "lowerWarning ": 0,
-            "lowerSevere": 0
-          },
-          "metricScore": 80
-        }
-      },
-      {
-        "id": "AVG_ResponseTime_Frontend",
-        "source": "Dynatrace",
-        "query": {
-          "timeseriesId": "com.dynatrace.builtin:service.responsetime",
-          "aggregation": "avg",
-          "tags": [
-            "dt-kube-demo-environment:production",
-            "dt-kube-demo-service:front-end"
-          ]
-        },
-        "grading": {
-          "type": "Threshold",
-          "thresholds": {
-            "upperSevere": 4000000,
-            "upperWarning": 2000000,
-            "lowerWarning ": 0,
-            "lowerSevere": 0
-          },
-          "metricScore": 80
-        }
-      },
-      {
-        "id": "P90_ResponseTime_Backend",
-        "source": "Dynatrace",
-        "query": {
-          "timeseriesId": "com.dynatrace.builtin:service.responsetime",
-          "aggregation": "p90",
-          "tags": [
-            "dt-kube-demo-environment:production",
-            "dt-kube-demo-service:catalog"
-          ]
-        },
-        "grading": {
-          "type": "Threshold",
-          "thresholds": {
-            "upperSevere": 1000000,
-            "upperWarning": 500000,
-            "lowerWarning ": 0,
-            "lowerSevere": 0
-          },
-          "metricScore": 20
-        }
-      },
-      {
-        "id": "AVG_ResponseTime_Backend",
-        "source": "Dynatrace",
-        "query": {
-          "timeseriesId": "com.dynatrace.builtin:service.responsetime",
-          "aggregation": "avg",
-          "tags": [
-            "dt-kube-demo-environment:production",
-            "dt-kube-demo-service:catalog"
-          ]
-        },
-        "grading": {
-          "type": "Threshold",
-          "thresholds": {
-            "upperSevere": 1000000,
-            "upperWarning": 500000,
-            "lowerWarning ": 0,
-            "lowerSevere": 0
-          },
-          "metricScore": 20
-        }
-      }
-    ],
-    "objectives": {
-      "pass": 90,
-      "warning": 75
-    }
-  }
-}
-###
-
-POST http://localhost:8080/api/pitometer
-Content-Type: application/json
