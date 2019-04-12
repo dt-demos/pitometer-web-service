@@ -128,7 +128,26 @@ Example response message
 ```
 </details>
 
-# Docker Deployment
+# Run the app from Docker
+
+You can just pull a pre-built image from [docker hub](https://hub.docker.com/r/robjahn/pitometer-web-service)
+
+1. Start a docker a container with the environment variables for the Dyntrace configuration.  The web application will be listening on port 8080
+    * option 1: explicitly passing in values
+        ```
+        docker run -p 8080:8080 -d -e DYNATRACE_BASEURL=<dynatrace tenant url> -e DYNATRACE_APITOKEN=<dynatrace api token> robjahn/pitometer-web-service
+        ```
+    * option 2: set OS variables
+        ```
+        export DYNATRACE_BASEURL=<dynatrace tenant url, example: https://abc.live.dynatrace.com>
+
+        export DYNATRACE_APITOKEN=<dynatrace API token>
+
+        docker run -p 8080:8080 -d -e DYNATRACE_BASEURL=$DYNATRACE_BASEURL -e DYNATRACE_APITOKEN=$DYNATRACE_APITOKEN robjahn/pitometer-web-service
+        ```
+1. make post request using a tool like [Postman](https://www.getpostman.com/downloads/) or the [VS Code REST client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) and the [Complete Body example](samples/pitometer.rest)
+
+# Build your own Docker image
 
 This repo has a [Dockerfile](Dockerfile) to build the application.  
 
@@ -142,19 +161,7 @@ To build and run a container locally:
     # optional push image to registry
     docker push account/pitometer-web-service
     ```
-1. run this command to start a container passing in the environment variables.  Application will be listening on port 8080
-    ```
-    # option 1: explicitly passing in values
-    docker run -p 8080:8080 -d -e DYNATRACE_BASEURL=<dynatrace tenant url> -e DYNATRACE_APITOKEN=<dynatrace api token> <account/pitometer-web-service>
-
-    # option 2: set OS variables
-    export DYNATRACE_BASEURL=<dynatrace tenant url, example: https://abc.live.dynatrace.com>
-
-    export DYNATRACE_APITOKEN=<dynatrace API token>
-
-    docker run -p 8080:8080 -d -e DYNATRACE_BASEURL=$DYNATRACE_BASEURL -e DYNATRACE_APITOKEN=$DYNATRACE_APITOKEN myImage
-    ```
-1. make post request using a tool like [Postman](https://www.getpostman.com/downloads/) or the [VS Code REST client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) and the [Complete Body example](samples/pitometer.rest)
+3. follow steps above in the section 'Run the app from Docker'
 
 # Local development
 
