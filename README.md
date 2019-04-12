@@ -182,4 +182,24 @@ To build and run a container locally:
 1. run ```npm start```
 1. make post request using a tool like [Postman](https://www.getpostman.com/downloads/) or the [VS Code REST client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) and the [Complete Body example](samples/pitometer.rest)
 
+# Use Azure container instance to host the pitometer web service
 
+Using the [az cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) on can quickly start up a [Azure container instance](https://azure.microsoft.com/en-us/services/container-instances/) that uses the pre-built image.  Below are the commands to create and delete a container instance using the pre-built image.
+
+```
+# Create the image.  Replace with you Dynatrace values.  Replace with your intance name and resource group.
+az container create \
+    --resource-group jahn-keptn-group \
+    --name jahn-pitometer-web-service \
+    --image robjahn/pitometer-web-service \
+    --restart-policy OnFailure \
+    --ip-address public \
+    --ports 8080 \
+    --environment-variables 'DYNATRACE_BASEURL'='https://ABCD.live.dynatrace.com' 'DYNATRACE_APITOKEN'='YOUR API TOKEN'
+
+# Remove the container instance. Replace with your intance name and resource group.
+az container delete \
+    --resource-group jahn-keptn-group \
+    --name jahn-pitometer-web-service
+
+```
