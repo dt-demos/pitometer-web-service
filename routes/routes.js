@@ -15,44 +15,46 @@ router.use(function(req, res, next) {
   });
   
   router.get('/', function(req, res) {
-    res.status(400).json({ status: 'fail', message: 'Please, use pitometer calling /api/pitometer' }); 
+    res.status(400).json({ status: 'error', message: 'Please, use pitometer calling /api/pitometer' }); 
   });
 
 
   router.route('/pitometer').post(async function(req, res) {
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
     res.setHeader('Content-Type', 'application/json');
-    var perfSpecJson = req.body.perfSpecJson.monspec;
+    var perfSpec = req.body.perfSpec;
     var timeStart = req.body.timeStart;
     var timeEnd = req.body.timeEnd;
+
+    // if don't find environment variables, then look to see if they are defined
+    // in a local .env file
+    if(!process.env.DYNATRACE_BASEURL && !process.env.DYNATRACE_APITOKEN )
+    {
+      console.log("Reading .env file");
+      const dotenv = require('dotenv');
+      //dotenv.config();
+    }
 
     // validate required arguments
     if(!process.env.DYNATRACE_BASEURL)
     {
-      res.status(400).json({ status: 'fail', message: 'Missing environment variable: BASEURL.' });
+      res.status(400).json({ status: 'error', message: 'Missing environment variable: DYNATRACE_BASEURL' });
     }
     if(!process.env.DYNATRACE_APITOKEN)
     {
-      res.status(400).json({ status: 'fail', message: 'Missing environment variable: PROVIDERKEY.' });
+      res.status(400).json({ status: 'error', message: 'Missing environment variable: DYNATRACE_APITOKEN' });
     }
-    if(!perfSpecJson)
+    if(!perfSpec)
     {
-      res.status(400).json({ status: 'fail', message: 'Missing perfSpecJson. Please check your request body and try again.' });
+      res.status(400).json({ status: 'error', message: 'Missing perfSpec. Please check your request body and try again.' });
     }
     if(!timeStart)
     {
-      res.status(400).json({ status: 'fail', message: 'Missing timeStart. Please check your request body and try again.' });
+      res.status(400).json({ status: 'error', message: 'Missing timeStart. Please check your request body and try again.' });
     }
     if(!timeEnd)
     {
-      res.status(400).json({ status: 'fail', message: 'Missing timeEnd. Please check your request body and try again.' });
-    }
-
-    // start processing 
-    if(process.env.BASEURL == null || process.env.PROVIDERKEY == null || process.env.BASEURL == "" || process.env.PROVIDERKEY == "")
-    {
-      const dotenv = require('dotenv');
-      dotenv.config();
+      res.status(400).json({ status: 'error', message: 'Missing timeEnd. Please check your request body and try again.' });
     }
 
     // configure the DynatraceSource
@@ -66,13 +68,13 @@ router.use(function(req, res, next) {
     pitometer.addGrader('Threshold', new ThresholdGrader());
 
     // debug output
-    var perfSpecJsonString = JSON.stringify(perfSpecJson);
+    var perfSpecString = JSON.stringify(perfSpec);
     console.log("Passed in timeStart: " + timeStart + "  timeEnd: " + timeEnd)
-    console.log("Passed in perfSpecJsonString: " + perfSpecJsonString)
+    console.log("Passed in perfSpecString: " + perfSpecString)
 
     // make the pitometer request
     var telemetryErr ="";
-    await pitometer.run(perfSpecJson, { timeStart: timeStart, timeEnd: timeEnd} )
+    await pitometer.run(perfSpec, { timeStart: timeStart, timeEnd: timeEnd} )
     .then((results) => telemetryResult = results)
     .catch((err) => telemetryErr = err);
 
