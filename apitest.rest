@@ -13,8 +13,6 @@ Content-Type: application/json
           "timeseriesId": "com.dynatrace.builtin:service.responsetime",
           "aggregation": "p90",
           "tags": [
-            "dt-kube-demo-environment:production",
-            "dt-kube-demo-service:front-end"
           ]
         },
         "grading": {
@@ -35,8 +33,6 @@ Content-Type: application/json
           "timeseriesId": "com.dynatrace.builtin:service.responsetime",
           "aggregation": "avg",
           "tags": [
-            "dt-kube-demo-environment:production",
-            "dt-kube-demo-service:front-end"
           ]
         },
         "grading": {
@@ -57,8 +53,6 @@ Content-Type: application/json
           "timeseriesId": "com.dynatrace.builtin:service.responsetime",
           "aggregation": "p90",
           "tags": [
-            "dt-kube-demo-environment:production",
-            "dt-kube-demo-service:catalog"
           ]
         },
         "grading": {
@@ -79,8 +73,6 @@ Content-Type: application/json
           "timeseriesId": "com.dynatrace.builtin:service.responsetime",
           "aggregation": "avg",
           "tags": [
-            "dt-kube-demo-environment:production",
-            "dt-kube-demo-service:catalog"
           ]
         },
         "grading": {

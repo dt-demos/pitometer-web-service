@@ -20,6 +20,8 @@ router.use(function(req, res, next) {
 
 
   router.route('/pitometer').post(async function(req, res) {
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.setHeader('Content-Type', 'application/json');
     var monspecfile = req.body.monspec;
     if(monspecfile)
     {
@@ -42,19 +44,34 @@ router.use(function(req, res, next) {
       }));
   
       pitometer.addGrader('Threshold', new ThresholdGrader());
+      var telemetryerr ="";
   
       await pitometer.run(monspecfile)
       .then((results) => telemetryresult = results)
-      .catch((err) => console.error(err));
-  
-      var monspecstring = JSON.stringify(monspecfile);
-  
-      console.log(monspecstring);
-  
+      .catch((err) => telemetryerr = err);
+
+
+    if(telemetryerr)
+    {
+      if(telemetryerr.message.includes('failed to resolve tenant'))
+      {
+        res.status(500).json({ status: 'fail', message: telemetryerr.message });
+      }
+      else
+      {
+        res.status(400).json({ status: 'fail', message: telemetryerr.message });
+      }
+      
+    }
+    else
+    {
       res.send(JSON.stringify(telemetryresult));
+    }
+      
   }
+  else
   {
-    res.status(400).json({ status: 'fail', message: 'The Perfspec file is empty, please check your request body and try again.' });
+    res.status(400).json({ status: 'fail', message: 'The Perfspec file is empty or wrong, please check your request body and try again.' });
   }
 });  
 
