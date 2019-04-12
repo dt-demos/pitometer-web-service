@@ -32,7 +32,7 @@ router.use(function(req, res, next) {
     {
       console.log("Reading .env file");
       const dotenv = require('dotenv');
-      //dotenv.config();
+      dotenv.config();
     }
 
     // validate required arguments
