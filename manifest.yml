@@ -1,0 +1,11 @@
+---
+applications:
+- name: cf-nodejs
+  buildpack: nodejs_buildpack
+  stack: cflinuxfs3
+  memory: 512M
+  instances: 1
+  random-route: true
+  env:
+    DYNATRACE_BASEURL: https://yourtenant.live.dynatrace.com
+    DYNATRACE_APITOKEN: YourAPIToken
