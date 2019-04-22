@@ -11,8 +11,9 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use('/api', require('./routes/routes').router);
 
 // listen (start app with node server.js) 
-app.listen(8080, () => {
- console.log("Server running on port 8080");
+app.listen(process.env.PORT || 8080, () => {
+  console.log("Server running!");
 });
 
 module.exports = app;
+
