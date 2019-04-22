@@ -203,3 +203,21 @@ az container delete \
     --name jahn-pitometer-web-service
 
 ```
+
+# Use Cloud Foundry to host the pitometer web service
+
+In this repo is ```manifest.yaml``` cloud manifest example file that you can use to run the service.
+
+1. adjust the environment values in ```manifest.yaml``` for your Dynatrace URL and Token.
+```
+DYNATRACE_BASEURL: Example https://yourtenant.live.dynatrace.com
+DYNATRACE_APITOKEN: Your APIToken value
+```
+
+2. deploy the application with optional <appname> using this command
+```
+cf push <appname> -f manifest.yml
+```
+ 
+See [Cloud Foundry Docs](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html) for additional options
+
