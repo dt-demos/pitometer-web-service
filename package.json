@@ -1,7 +1,7 @@
 {
-  "name": "pitometer-front",
+  "name": "pitometer-web-service",
   "version": "1.0.0",
-  "description": "pitometer front end",
+  "description": "pitometer-web-service",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,9 +9,9 @@
   "author": "community",
   "license": "MIT",
   "dependencies": {
-    "@pitometer/grader-threshold": "keptn/pitometer-grader-thresholds#0.0.2",
-    "@pitometer/pitometer": "keptn/pitometer#0.0.2",
-    "@pitometer/source-dynatrace": "keptn/pitometer-source-dynatrace#0.0.2",
+    "@pitometer/grader-threshold": "github:keptn/pitometer-grader-thresholds#0.0.2",
+    "@pitometer/pitometer": "github:keptn/pitometer#0.0.2",
+    "@pitometer/source-dynatrace": "github:keptn/pitometer-source-dynatrace#0.0.2",
     "body-parser": "^1.18.3",
     "dotenv": "^7.0.0",
     "express": "^4.16.4"
