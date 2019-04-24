@@ -9,6 +9,15 @@ The "perf spec" processing logic uses the [Keptn Pitometer NodeJS modules](https
 
 # Interface design
 
+## Request - healthpage
+
+* GET request to http://[baseurl]/health will return status it service is running
+```
+{
+    "status": "UP"
+}
+```
+
 ## Request - Perf Spec evaluation
 * POST request to https://[baseurl]/api/pitometer
 * Content-Type: application/json
