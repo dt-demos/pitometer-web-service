@@ -10,7 +10,6 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 // routes =======================================================================
 var router = express.Router();
 app.use('/api', require('./routes/routes').router);
-//app.use('/api', router);
 app.use("/health", router);
 
 router.get('/', function (req, res, next) {
