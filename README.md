@@ -55,7 +55,7 @@ Example response message
 
 ```
 {
-    "totalScore": 100,
+    "totalScore": 60,
     "objectives": {
         "pass": 100,
         "warning": 50
@@ -65,28 +65,28 @@ Example response message
             "id": "P90_ResponseTime_Frontend",
             "violations": [
                 {
-                    "value": 12773344.5,
-                    "key": "SERVICE-CA9FE330E85EE73B",
+                    "value": 5824401.800000001,
+                    "key": "SERVICE-BAB018A09DA36B75",
                     "breach": "upper_critical",
                     "threshold": 4000000
-                }]
+                }
             ],
-            "score": 50
+            "score": 20
         },
         {
             "id": "AVG_ResponseTime_Frontend",
             "violations": [
                 {
-                    "value": 4308886.6,
-                    "key": "SERVICE-CA9FE330E85EE73B",
-                    "breach": "upper_critical",
-                    "threshold": 4000000
+                    "value": 2476689.888888889,
+                    "key": "SERVICE-BAB018A09DA36B75",
+                    "breach": "upper_warning",
+                    "threshold": 2000000
                 }
             ],
-            "score": 50
+            "score": 40
         }
     ],
-    "result": "pass"
+    "result": "warning"
 }
 ```
 
