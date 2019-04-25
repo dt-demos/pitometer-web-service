@@ -38,23 +38,23 @@ router.use(function(req, res, next) {
     // validate required arguments
     if(!process.env.DYNATRACE_BASEURL)
     {
-      res.status(400).json({ status: 'error', message: 'Missing environment variable: DYNATRACE_BASEURL' });
+      res.status(400).json({ result: 'error', message: 'Missing environment variable: DYNATRACE_BASEURL' });
     }
     if(!process.env.DYNATRACE_APITOKEN)
     {
-      res.status(400).json({ status: 'error', message: 'Missing environment variable: DYNATRACE_APITOKEN' });
+      res.status(400).json({ result: 'error', message: 'Missing environment variable: DYNATRACE_APITOKEN' });
     }
     if(!perfSpec)
     {
-      res.status(400).json({ status: 'error', message: 'Missing perfSpec. Please check your request body and try again.' });
+      res.status(400).json({ result: 'error', message: 'Missing perfSpec. Please check your request body and try again.' });
     }
     if(!timeStart)
     {
-      res.status(400).json({ status: 'error', message: 'Missing timeStart. Please check your request body and try again.' });
+      res.status(400).json({ result: 'error', message: 'Missing timeStart. Please check your request body and try again.' });
     }
     if(!timeEnd)
     {
-      res.status(400).json({ status: 'error', message: 'Missing timeEnd. Please check your request body and try again.' });
+      res.status(400).json({ result: 'error', message: 'Missing timeEnd. Please check your request body and try again.' });
     }
 
     // configure the DynatraceSource
@@ -81,7 +81,7 @@ router.use(function(req, res, next) {
     if(telemetryErr)
     {
       console.log("Result: " + telemetryErr.message)
-      res.status(500).json({ status: 'error', message: telemetryErr.message });
+      res.status(500).json({ result: 'error', message: telemetryErr.message });
     }
     else
     {
