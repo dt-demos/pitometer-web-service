@@ -6,9 +6,6 @@ const DynatraceSource = require('@pitometer/source-dynatrace').Source;
 const ThresholdGrader = require('@pitometer/grader-threshold').Grader;
 const Pitometer = require ("@pitometer/pitometer").Pitometer;
 
-// create instance of Pitometer
-var pitometer = new Pitometer();
-
 router.use(function(req, res, next) {
     console.log('Processing request');
     next();
@@ -18,9 +15,7 @@ router.use(function(req, res, next) {
     res.status(400).json({ status: 'error', message: 'Please, use pitometer calling /api/pitometer' }); 
   });
 
-
   router.route('/pitometer').post(async function(req, res) {
-    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
     res.setHeader('Content-Type', 'application/json');
     var perfSpec = req.body.perfSpec;
     var timeStart = req.body.timeStart;
@@ -57,6 +52,9 @@ router.use(function(req, res, next) {
       res.status(400).json({ result: 'error', message: 'Missing timeEnd. Please check your request body and try again.' });
     }
 
+    // create instance of Pitometer
+    var pitometer = new Pitometer();
+    
     // configure the DynatraceSource
     pitometer.addSource('Dynatrace', new DynatraceSource({
       baseUrl: process.env.DYNATRACE_BASEURL,
