@@ -1,0 +1,63 @@
+{
+    "timeStart": 1551398400,
+    "timeEnd": 1555027200,
+    "perfSpec": {
+        "spec_version": "1.0",
+        "indicators": [
+            {
+                "id": "P90_ResponseTime_Frontend",
+                "source": "Dynatrace",
+                "query": {
+                    "timeseriesId": "com.dynatrace.builtin:service.responsetime",
+                    "aggregation": "p90",
+                    "tags": [
+                        {
+                            "context": "CONTEXTLESS",
+                            "key": "service",
+                            "value": "carts"
+                        }
+                    ]
+                },
+                "grading": {
+                    "type": "Threshold",
+                    "thresholds": {
+                        "upperSevere": 4000000,
+                        "upperWarning": 2000000,
+                        "lowerWarning ": 0,
+                        "lowerSevere": 0
+                    },
+                    "metricScore": 20
+                }
+            },
+            {
+                "id": "AVG_ResponseTime_Frontend",
+                "source": "Dynatrace",
+                "query": {
+                    "timeseriesId": "com.dynatrace.builtin:service.responsetime",
+                    "aggregation": "avg",
+                    "tags": [
+                        {
+                            "context": "CONTEXTLESS",
+                            "key": "service",
+                            "value": "carts"
+                        }
+                    ]
+                },
+                "grading": {
+                    "type": "Threshold",
+                    "thresholds": {
+                        "upperSevere": 4000000,
+                        "upperWarning": 2000000,
+                        "lowerWarning ": 0,
+                        "lowerSevere": 0
+                    },
+                    "metricScore": 80
+                }
+            }
+        ],
+        "objectives": {
+            "pass": 2,
+            "warning": 1
+        }
+    }
+}
