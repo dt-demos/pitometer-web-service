@@ -8,16 +8,17 @@
   },
   "author": "community",
   "license": "MIT",
+  "repository": "https://github.com/dt-demos/pitometer-web-service",
   "dependencies": {
-    "@pitometer/grader-threshold": "github:keptn/pitometer-grader-thresholds#0.0.2",
-    "@pitometer/pitometer": "github:keptn/pitometer#0.0.2",
-    "@pitometer/source-dynatrace": "github:keptn/pitometer-source-dynatrace#0.0.2",
-    "body-parser": "^1.18.3",
+    "@keptn/pitometer": "^1.0.3",
+    "@keptn/pitometer-grader-threshold": "^1.0.0",
+    "@keptn/pitometer-source-dynatrace": "^1.0.0",
+    "body-parser": "^1.19.0",
     "dotenv": "^7.0.0",
     "express": "^4.16.4"
   },
   "engines": {
     "node": "10.x",
-    "npm": "6.4.x"
+    "npm": "6.9.x"
   }
 }

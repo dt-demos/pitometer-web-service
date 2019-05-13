@@ -3,9 +3,9 @@
 Microservice web application that provides the processing logic of a passed in "perf spec" and start/end time frame. This service can be used as a software quality gate within continuous integration software pipelines. 
 
 The "perf spec" processing logic uses the [Keptn Pitometer NodeJS modules](https://github.com/keptn/pitometer). This web application uses these specific modules.
-* [pitometer](https://github.com/pitometer/pitometer) - Core module that acts as monspec processor to the request
-* [source-dynatrace](https://github.com/pitometer/source-dynatrace) - interfaces to Dynatrace API to collect metrics
-* [grader-thresholds](https://github.com/pitometer/grader-thresholds) - evaluates the threasholds and scores the request
+* [pitometer](https://github.com/keptn/pitometer) - Core module that acts as monspec processor to the request
+* [source-dynatrace](https://github.com/keptn/pitometer-source-dynatrace) - interfaces to Dynatrace API to collect metrics
+* [grader-thresholds](https://github.com/keptn/pitometer-grader-thresholds) - evaluates the threasholds and scores the request
 
 # Interface design
 

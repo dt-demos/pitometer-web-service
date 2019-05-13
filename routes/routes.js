@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 //pitometer modules required
-const DynatraceSource = require('@pitometer/source-dynatrace').Source;
-const ThresholdGrader = require('@pitometer/grader-threshold').Grader;
-const Pitometer = require ("@pitometer/pitometer").Pitometer;
+const Pitometer = require('@keptn/pitometer').Pitometer;
+const DynatraceSource = require('@keptn/pitometer-source-dynatrace').Source;
+const ThresholdGrader = require('@keptn/pitometer-grader-threshold').Grader;
 
 router.use(function(req, res, next) {
     console.log('Processing request');
@@ -15,7 +15,7 @@ router.use(function(req, res, next) {
     res.status(400).json({ status: 'error', message: 'Please, use pitometer calling /api/pitometer' }); 
   });
 
-  router.route('/pitometer').post(async function(req, res) {
+  router.post('/pitometer', async (req, res, next) => {
     res.setHeader('Content-Type', 'application/json');
     var perfSpec = req.body.perfSpec;
     var timeStart = req.body.timeStart;
