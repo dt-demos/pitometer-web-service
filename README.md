@@ -156,6 +156,87 @@ You can just pull a pre-built image from [docker hub](https://hub.docker.com/r/r
         ```
 1. make post request using a tool like [Postman](https://www.getpostman.com/downloads/) or the [VS Code REST client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) and the [Complete Body example](samples/pitometer.rest)
 
+# Use Azure container instance to host the pitometer web service
+
+The quickest way to setup the Pitometer webservice in Azure is to start up an Azure container instance that uses the pre-built [Pitometer webservice image](https://hub.docker.com/r/robjahn/pitometer-web-service). This way any pipeline can add a quality gate by just calling webservice with their 'PerfSpec' file.
+
+## Option 1 - Use Azure Portal
+
+Login into the Azure portal and create a new container instance with the inputs shown below:
+1. Container instance name 
+2. New or existing resource group
+3. Container image name of “robjahn/pitometer-web-service”
+
+<img src="docs/container-instance-overview.png" width="500"/>
+
+Next, click on the 'Networking' tab adjust from port 80 to port 8080.
+
+<img src="docs/container-instance-networking.png" width="500"/>
+
+Next, click on the “Advanced” Tab and add these environment variables that are used to configure “Pitometer” to call the Dynatrace API for your Dynatrace environment.
+* DYNATRACE_BASEURL – the base URL of your Dynatrace account
+* DYNATRACE_APITOKEN – the [Dynatrace API token](https://www.dynatrace.com/support/doc/nam/rum-console-and-configuration/rum-console-home/settings-menu-section/menu-settings-security/api-tokens/) 
+
+This is how it should look:
+
+<img src="docs/container-instance-advanced.png" width="500"/>
+
+Finally, review and create the container instance.
+
+After the container instance is running, go to the overview page as shown below and use the IP address within the URL to the Pitometer endpoint:  ```http://<Your IP>:8080/api/pitometer```
+
+<img src="docs/container-instance-ip.png" width="500"/>
+
+## Option 2 - Use azure CLI
+
+Alternatively, here are the commands to automate this provisioning process using the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) on can quickly start up a [Azure container instance](https://azure.microsoft.com/en-us/services/container-instances/) that uses the pre-built image.  Below are the commands to create and delete a container instance using the pre-built image.
+
+```
+# Create a resource group and container instance.  Replace with you Dynatrace values.  Replace with your intance name and resource group.
+
+az group create --name keptn-pitometer-group --location eastus
+
+az container create \
+    --resource-group keptn-pitometer-group \
+    --name pitometer-web-service \
+    --image robjahn/pitometer-web-service \
+    --restart-policy OnFailure \
+    --ip-address public \
+    --ports 8080 \
+    --environment-variables 'DYNATRACE_BASEURL'='https://ABCD.live.dynatrace.com' 'DYNATRACE_APITOKEN'='YOUR API TOKEN'
+
+# Remove the container instance. Replace with your intance name and resource group.
+az container delete \
+    --resource-group keptn-pitometer-group \
+    --name pitometer-web-service
+
+```
+
+# Use Cloud Foundry to host the pitometer web service
+
+In this repo is a cloud foundry manifest example file that you can use to run the service.
+
+1. adjust the environment values in ```manifest.yaml``` for your Dynatrace URL and Token.
+```
+DYNATRACE_BASEURL: Example https://yourtenant.live.dynatrace.com
+DYNATRACE_APITOKEN: Your APIToken value
+```
+
+2. deploy the application with optional name using this command
+```
+cf push <appname> -f manifest.yml
+```
+ 
+See [Cloud Foundry Docs](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html) for additional options
+
+# Use Postman to validate
+
+A client tool such as [Postman](https://www.getpostman.com/) is an easy way to test the service.  Just create a POST request with this information as seen below.
+* URL = http://[Your IP]:8080/api/pitometer
+* Content-Type = application/json
+
+<img src="docs/postman.png" width="500"/>
+
 # Build your own Docker image
 
 This repo has a [Dockerfile](Dockerfile) to build the application.  
@@ -190,43 +271,3 @@ To build and run a container locally:
     ```
 1. run ```npm start```
 1. make post request using a tool like [Postman](https://www.getpostman.com/downloads/) or the [VS Code REST client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) and the [Complete Body example](samples/pitometer.rest)
-
-# Use Azure container instance to host the pitometer web service
-
-Using the [az cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) on can quickly start up a [Azure container instance](https://azure.microsoft.com/en-us/services/container-instances/) that uses the pre-built image.  Below are the commands to create and delete a container instance using the pre-built image.
-
-```
-# Create the image.  Replace with you Dynatrace values.  Replace with your intance name and resource group.
-az container create \
-    --resource-group jahn-keptn-group \
-    --name jahn-pitometer-web-service \
-    --image robjahn/pitometer-web-service \
-    --restart-policy OnFailure \
-    --ip-address public \
-    --ports 8080 \
-    --environment-variables 'DYNATRACE_BASEURL'='https://ABCD.live.dynatrace.com' 'DYNATRACE_APITOKEN'='YOUR API TOKEN'
-
-# Remove the container instance. Replace with your intance name and resource group.
-az container delete \
-    --resource-group jahn-keptn-group \
-    --name jahn-pitometer-web-service
-
-```
-
-# Use Cloud Foundry to host the pitometer web service
-
-In this repo is a cloud foundry manifest example file that you can use to run the service.
-
-1. adjust the environment values in ```manifest.yaml``` for your Dynatrace URL and Token.
-```
-DYNATRACE_BASEURL: Example https://yourtenant.live.dynatrace.com
-DYNATRACE_APITOKEN: Your APIToken value
-```
-
-2. deploy the application with optional name using this command
-```
-cf push <appname> -f manifest.yml
-```
- 
-See [Cloud Foundry Docs](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html) for additional options
-
