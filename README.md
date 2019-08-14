@@ -7,6 +7,10 @@ The "perf spec" processing logic uses the [Keptn Pitometer NodeJS modules](https
 * [source-dynatrace](https://github.com/keptn/pitometer-source-dynatrace) - interfaces to Dynatrace API to collect metrics
 * [grader-thresholds](https://github.com/keptn/pitometer-grader-thresholds) - evaluates the threasholds and scores the request
 
+Read how to incorporate in these blogs:
+* [Adding automated performance quality gates using keptn pitometer](https://cloudblogs.microsoft.com/opensource/2019/04/25/adding-automated-performance-quality-gates-using-keptn-pitometer/)
+* [Five steps to add automated performance quality gates to Azure DevOps pipelines](https://cloudblogs.microsoft.com/opensource/2019/06/11/five-steps-add-automated-performance-quality-gates-azure-devops-pipelines/)
+
 # Interface design
 
 ## Request - healthpage
