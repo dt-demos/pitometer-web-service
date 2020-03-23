@@ -1,3 +1,5 @@
+# :rotating_light: This project was based on Keptn Pitometer that was deprecated with Keptn version 0.6.0. Please reach out to the Keptn team using Slack, a GitHub issue, or any other way you prefer to learn about the transition from Pitometer to the new [Lighthouse-Service](https://github.com/keptn/keptn/tree/develop/lighthouse-service). You can find new sandbox projects in the [keptn-sandbox org](https://github.com/keptn-sandbox) :rotating_light:
+
 # Overview
 
 Microservice web application that provides the processing logic of a passed in "perf spec" and start/end time frame. This service can be used as a software quality gate within continuous integration software pipelines. 
